@@ -39,21 +39,26 @@ try:
 except ConnectionRefusedError:
     sys.exit('Conection Refused')
 
-print('Recibido -- ', data.decode('utf-8'))
+print('Recibido --' + '\r\n', data.decode('utf-8'))
 if METHOD == 'INVITE':
-    I1 = data.decode('utf-8').split()[5]
-    I2 = data.decode('utf-8').split()[8]
-    I3 = data.decode('utf8').split()[11]
+    I1 = data.decode('utf-8').split()[1]
+    print(I1)
+    I2 = data.decode('utf-8').split()[4]
+    print(I2)
+    I3 = data.decode('utf8').split()[7]
+    print(I3)
     if I1 == '100' and I2 == '180' and I3 == '200':
-        Line = 'ACK ' + 'sip:' + LOGIN + 'SIT/2.0'
+        Line = 'ACK ' + 'sip:' + LOGIN + IP + ' SIP/2.0\r\n'
         print('Sending: ' + Line)
         my_socket.send(bytes(Line, 'utf-8') + b'\r\n')
         data = my_socket.recv(1024)
+elif METHOD == 'BYE':
+    print("Terminando socket...")
+    # Cerramos todo
+    my_socket.close()
+    print("Fin.")
 
 
-print("Terminando socket...")
 
 
-# Cerramos todo
-my_socket.close()
-print("Fin.")
+
