@@ -42,11 +42,8 @@ except ConnectionRefusedError:
 print('Recibido --' + '\r\n', data.decode('utf-8'))
 if METHOD == 'INVITE':
     I1 = data.decode('utf-8').split()[1]
-    print(I1)
     I2 = data.decode('utf-8').split()[4]
-    print(I2)
     I3 = data.decode('utf8').split()[7]
-    print(I3)
     if I1 == '100' and I2 == '180' and I3 == '200':
         Line = 'ACK ' + 'sip:' + LOGIN + IP + ' SIP/2.0\r\n'
         print('Sending: ' + Line)
