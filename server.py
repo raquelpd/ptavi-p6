@@ -4,20 +4,19 @@
 Clase (y programa principal) para un servidor de eco en UDP simple
 """
 
-import SocketServer
+import socketserver
 import sys
 import os.path
 import os
 
 
-class EchoHandler(SocketServer.DatagramRequestHandler):
+class EchoHandler(socketserver.DatagramRequestHandler):
     """
     Echo server class
     """
 
     def handle(self):
         # Escribe dirección y puerto del cliente (de tupla client_address)
-        self.wfile.write(b"Hemos recibido tu peticion" + b'\r\n\r\n')
         while 1:
             # Leyendo línea a línea lo que nos envía el cliente
             line = self.rfile.read()
@@ -56,7 +55,7 @@ if __name__ == "__main__":
         sys.exit('Usage: audio file does not exist')
 
     # Creamos servidor de eco y escuchamos
-    serv = SocketServer.UDPServer(('', PORT), EchoHandler)
+    serv = socketserver.UDPServer(('', PORT), EchoHandler)
 
     print('listening...')
     serv.serve_forever()
